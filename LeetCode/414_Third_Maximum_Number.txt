@@ -1,0 +1,41 @@
+class Solution {
+    public int thirdMax(int[] nums) {
+        
+        int first_largest = Integer.MIN_VALUE;
+        int second_largest = Integer.MIN_VALUE;
+        int third_largest = Integer.MIN_VALUE;
+        int c =0;
+        
+        Map<Integer, Integer> m = new HashMap<>();
+        for(int i=0; i<nums.length; i++)
+        {
+            if(!m.containsKey(nums[i]))
+            {
+                m.put(nums[i], 1);
+                c++;
+            }
+        }
+        for(int i=0; i<nums.length; i++)
+        {
+            if(nums[i] > first_largest)
+            {
+                third_largest = second_largest;
+                second_largest = first_largest;
+                first_largest = nums[i];
+                
+            }
+            if(nums[i] > second_largest && nums[i] < first_largest)
+            {
+                third_largest = second_largest;
+                second_largest = nums[i];
+            }
+             if(nums[i] > third_largest && nums[i] < first_largest && nums[i] < second_largest)
+            {
+                third_largest = nums[i];
+            }
+        }
+        if(c<3)
+            return first_largest;
+        return third_largest;
+    }
+}

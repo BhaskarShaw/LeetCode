@@ -1,0 +1,22 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<>();
+        return paranthesis(list, "", n, n, n);
+    }
+    
+    List<String> paranthesis(List<String> list, String str, int n, int open, int close)
+    {
+        if(close == 0 && open == 0)
+        {
+            list.add(str);
+        }
+        else
+        {
+            if(open < close)
+                paranthesis(list, str+")", n, open, close-1);
+            if(open > 0)
+                paranthesis(list, str+"(", n, open-1, close);
+        }
+        return list;
+    }
+}

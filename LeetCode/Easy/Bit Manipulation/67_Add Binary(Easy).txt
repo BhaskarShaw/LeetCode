@@ -1,0 +1,24 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        
+        int postion1 = a.length();
+        int postion2 = b.length();
+        int carry = 0;
+        String str = "";
+        while(postion1 > 0 || postion2 >0 || carry==1)
+        {
+            if(postion1 > 0)
+                carry += (int)a.charAt(postion1-1) - 48;
+
+            if(postion2 > 0)
+                carry += (int)b.charAt(postion2-1) - 48;
+
+            str = (char)(carry%2 + 48) + str;
+            carry /= 2;
+            postion1--;
+            postion2--;
+        }
+        return str;
+        
+    }
+}

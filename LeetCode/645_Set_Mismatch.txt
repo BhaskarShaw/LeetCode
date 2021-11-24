@@ -1,0 +1,40 @@
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        Arrays.sort(nums);
+        int[] result = new int[2];
+        for(int i=0; i<nums.length-1; i++)
+        {
+            if(nums[i] == nums[i+1])
+            {
+                result[0] = nums[i];
+                break;
+            }
+        }
+        int pos = 1;
+        for(int i=0; i<nums.length-1; i++)
+        {
+            if(nums[i]==nums[i+1] && nums[i]==pos)
+            {
+                i++;
+                pos++;
+                continue;
+            }
+            if(nums[i] != pos)
+            {
+                result[1] = pos;
+                return result;
+            }
+            pos++;
+        }
+        if(nums[nums.length-1] != pos)
+        {
+            result[1] = pos;
+        }
+        else
+        {
+            result[1] = pos+1;
+        }
+        
+        return result;
+    }
+}

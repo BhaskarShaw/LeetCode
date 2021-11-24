@@ -1,0 +1,50 @@
+public class Solution {
+    public int maxSumSubmatrix(int[][] matrix, int k) {
+        int col = matrix[0].length;
+        int max_value = Integer.MIN_VALUE;
+        for(int left = 0; left<col; left++)
+        {
+            int[] kadane_array = new int[matrix.length];
+            for(int right = left; right<col; right++)
+            {
+                for(int i=0; i<kadane_array.length; i++)
+                {
+                    //System.out.println("kadane_array["+i+"] : "+kadane_array[i]+"  matrix : "+matrix[i][right]);
+                    
+                    kadane_array[i] = kadane_array[i] + matrix[i][right];
+                    
+                }
+                //System.out.println("kadane_array : "+ Arrays.toString(kadane_array) );
+                
+                int local_max = Math.max(max_value, subArray(kadane_array.clone(), k));
+                
+                //System.out.println("local_max : "+local_max);
+                
+                if(local_max <= k)
+                    max_value = local_max;
+            }
+        }
+        return max_value;
+    }
+    
+    public int subArray(int[] nums, int k)
+    {
+        int max_sum = nums[0];
+        
+        for(int i=1; i<nums.length; i++)
+        {
+            int comp = nums[i];
+            if(nums[i] > k)
+                comp = Integer.MIN_VALUE;
+            nums[i] = Math.max(nums[i-1]+nums[i], comp);
+            
+            // System.out.println();
+            // System.out.println(nums[i]);
+            // System.out.println();
+            
+            if(nums[i] <= k)
+                max_sum = Math.max(nums[i], max_sum);
+        }
+        return max_sum;
+    }
+}
